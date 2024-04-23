@@ -1,0 +1,87 @@
+spring:
+  application:
+    name: FirstSpring
+  thymeleaf:
+    cache: false
+
+first-spring:
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+    info:
+      enabled: true
+  metrics:
+    tags:
+      application: firstspring
+      service: VS
+      region: hungary
+    enable:
+      jvm: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+
+---
+spring:
+  profiles:
+    active: develop
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      data-locations: classpath:data.sql
+      mode: always
+
+logging:
+  level:
+    org:
+      springframework: DEBUG
+
+---
+spring:
+  profiles:
+    active: test
+
+
+---
+spring:
+  profiles:
+    active: uat
+
+
+---
+spring:
+  profiles:
+    active: prod
+
+

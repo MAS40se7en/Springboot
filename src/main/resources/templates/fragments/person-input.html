@@ -1,0 +1,20 @@
+<div th:fragment="person-input(person, countries)">
+        <!-- Hidden input to include the entity ID -->
+        <input th:if="${person}!=null" type="hidden" th:name="id" th:value="${person.id}"/>
+        <!-- Input fields for updating entity properties -->
+        <label>Name:</label>
+        <input type="text" th:name="name" th:value="${person !=null ? person.name: ''}" required/>
+        <label>Nationality:</label>
+        <label>
+                <select name="country">
+                    <option th:each="c : ${countries}" th:value="${c.id}" th:text="${c.name}">
+                    </option>
+                </select>
+        </label>
+        <label>PersonalId:</label>
+        <input type="text" th:name="personalId" th:value="${person != null ? person.personalId:''}" required>
+        <br/>
+        <br/>
+        <!-- Submit button -->
+        <button type="submit"  th:text="${person == null ? 'Insert':'Update'}"> Submit </button>
+</div>

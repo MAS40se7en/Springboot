@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/styles/core.css}" rel="stylesheet" media="screen"  />
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/scripts/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">Header</div>
+<div>
+    <H2>Person</H2>
+
+    <div class="error" th:if="${errors !=null}">
+        <p>Error Message(s):</p>
+        <ul>
+            <li th:each="error : ${errors}">
+                <span th:text="${error}"></span>
+            </li>
+        </ul>
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Country</th>
+            <th>Personal ID</th>
+            <th>delete</th>
+            <th>Modify</th>
+        </tr>
+        <tr th:if="${#lists.isEmpty(persons)}">
+            <td colspan="5">No Records found. Add some...!</td>
+        </tr>
+        <tr th:each="person : ${persons.content}">
+            <td th:text="${person.getId()}"></td>
+            <td th:text="${person.getName()}"></td>
+            <td th:text="${person.getCountry.name}"></td>
+            <td th:text="${person.getPersonalId()}"></td>
+            <td>
+                <form th:action="@{/person/update-form/{id}(id=${person.id})}" method="get">
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/person/delete/{id}(id=${person.id})}" method="post">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div th:replace="~{fragments/pager :: pager(${persons}, 'person/list')}" th:with="persons=${persons}, url='person'"></div>
+    <div><a href="/person/insert-form">Add person</a></div>
+</div>
+
+</body>
+</html>
+
+
+

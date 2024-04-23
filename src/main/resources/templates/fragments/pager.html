@@ -1,0 +1,11 @@
+<div th:fragment="pager(domains, url)">
+    <div class="pagination">
+        <ul th:if="${domains.totalPages > 0}" th:each="pageNumber : ${pageNumbers}">
+            <li class="page-link">
+                <a th:href="@{'/'+${url}+'?size='+${domains.size}+'&page='+${pageNumber}}"
+                   th:text=${pageNumber}
+                   th:class="${pageNumber==domains.number + 1} ? active"></a>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/styles/bootstrap.min.css}" rel="stylesheet" />
+    <link th:href="@{/styles/core.css}" rel="stylesheet" media="screen"  />
+    <script th:src="@{/scripts/jquery.min.js}"></script>
+    <script th:src="@{/scripts/bootstrap.min.js}"></script>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}">Header</div>
+
+<h1>Update Person</h1>
+<form th:action="@{/person/update/{id}(id=${person.id})}" method="post">
+    <div th:replace="~{fragments/person-input :: person-input(${person}, ${countries})}"></div>
+</form>
+</body>
+</html>

@@ -1,0 +1,10 @@
+<div th:fragment="errormsg(errors)">
+    <div class="alert alert-danger" th:if="${errors !=null}">
+        <p>Error Message(s):</p>
+        <ul>
+            <li th:each="error : ${errors}">
+                <span th:text="${error}"></span>
+            </li>
+        </ul>
+    </div>
+</div>

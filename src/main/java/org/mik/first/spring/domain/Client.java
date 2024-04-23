@@ -18,7 +18,7 @@ public class Client extends AbstractEntity<Long> {
     @Length(min = 2, max = 50)
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "country")
     private Country country;
 

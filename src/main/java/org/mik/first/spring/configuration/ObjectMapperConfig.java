@@ -18,6 +18,7 @@ public class ObjectMapperConfig {
         instance.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
         instance.enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
         instance.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        instance.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
         return instance;
     }
 }

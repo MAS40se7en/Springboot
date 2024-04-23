@@ -59,4 +59,14 @@ public class PersonRestController {
 
         return ResponseEntity.ok(this.personService.save(p));
     }
+
+
+    @PutMapping(value = "/update", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Person> update(@RequestBody Person p) {
+        Person orig=this.personService.findById(p.getId()).orElseThrow(
+                () -> new ResourceNotFoundException(String.format("Cannot find person with id: %d", p.getId()))
+        );
+        p.setVersion(orig.getVersion());
+        return ResponseEntity.ok(personService.save(p));
+    }
 }

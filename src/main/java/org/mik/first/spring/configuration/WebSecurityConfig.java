@@ -23,6 +23,9 @@ public class WebSecurityConfig {
                        a.requestMatchers(
                                antMatcher("/h2/**"),
                                antMatcher("/users/**"),
+                               antMatcher("/api-docx"),
+                               antMatcher("/swagger-ui/**"),
+                               antMatcher("/swagger-ui.html"),
                                antMatcher("/**") //TODO remove later
 
                        ).permitAll()

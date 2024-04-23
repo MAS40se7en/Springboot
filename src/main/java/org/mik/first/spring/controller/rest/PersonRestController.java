@@ -13,8 +13,9 @@ import org.springframework.http.MediaType;
 
 import javax.print.attribute.standard.Media;
 import java.util.List;
+import java.util.Objects;
 
-@Controller
+@RestController
 @RequestMapping(Const.REST_API_URL+"/person")
 public class PersonRestController {
 
@@ -67,6 +68,20 @@ public class PersonRestController {
                 () -> new ResourceNotFoundException(String.format("Cannot find person with id: %d", p.getId()))
         );
         p.setVersion(orig.getVersion());
+        if (Objects.equals(p.getCountry().getId(), orig.getCountry().getId())) {
+            p.setCountry(orig.getCountry());
+        } else {
+            p.setCountry(this.countryService.findById(p.getId()).orElseThrow(
+                    () -> new ResourceNotFoundException(String.format("Cannot find country with id: %d", p.getCountry().getId()))
+            ));
+        }
         return ResponseEntity.ok(personService.save(p));
+    }
+
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable(value = "id", required = true) Long id) {
+        Person p = this.personService.findById(id).orElseThrow( ()-> new ResourceNotFoundException(String.format("Cannot find person with id: %d", id)));
+        this.personService.delete(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -66,6 +66,9 @@ logging:
   level:
     org:
       springframework: DEBUG
+springdoc:
+  api-docs:
+    path: /api-docs
 
 ---
 spring:
